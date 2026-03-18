@@ -1,0 +1,39 @@
+{
+    "theme_color": "#4f39f6",
+    "background_color": "#8936FF",
+    "icons": [
+        {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "/icon512_maskable.png",
+            "type": "image/png"
+        },
+        {
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "/icon512_rounded.png",
+            "type": "image/png"
+        }
+    ],
+    "orientation": "any",
+    "display": "standalone",
+    "dir": "auto",
+    "lang": "es-ES",
+    "name": "Super Lista de Compras",
+    "short_name": "Super Lista",
+    "start_url": "/",
+    "scope": "/",
+    "screenshots": [
+        {
+            "src": "/screenshot.jpg",
+            "type": "image/jpg",
+            "sizes": "1080x1920"
+        },
+        {
+            "src": "/screenshot-wide.jpg",
+            "type": "image/jpg",
+            "sizes": "1920x1080",
+            "form_factor": "wide"
+        }
+    ]
+}
