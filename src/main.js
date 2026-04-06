@@ -1,8 +1,8 @@
 import Swal from 'sweetalert2'
-import { v4 as uuidv4 } from 'uuid';
 
 import './style.css'
 import handleHttp from './utils/handle-http';
+import { guardarListaProductos, leerListaProductos } from './utils/handle-local-storage';
 
 // ! ----------------------------------------
 // ! Menú
@@ -32,14 +32,30 @@ overlay.addEventListener('click', closeSidebar)
 // ! VARIABLES GLOBAL
 // ! ----------------------------------------
 
-const urlProductos = import.meta.env.VITE_API_PRODUCTOS
+const urlProductos = controlarAmbiente()
 
-let listadoProductos = [
+function controlarAmbiente() {
+    console.log( import.meta.env.DEV ) // Si estoy en desarrollo o en producción (true o false)
+    let apiUrl = ''
+    if ( import.meta.env.DEV ) {
+        console.log('Estoy en desarrollo')
+        apiUrl = import.meta.env.VITE_API_PRODUCTOS // json-server
+    } else {
+        console.log('Estoy en producción')
+        apiUrl = import.meta.env.VITE_API_PRODUCTOS_PROD // mockapi
+    }
+
+    return apiUrl
+}
+
+
+let listadoProductos = leerListaProductos()
+/* let listadoProductos = [ */
 /*     { id: "1", nombre: 'Carne', cantidad: 2, precio: 42.34 }, // 0 
     { id: "2", nombre: 'Leche', cantidad: 4, precio: 22.34 }, // 1 
     { id: "3", nombre: 'Pan', cantidad: 5, precio: 12.34 }, // 2
     { id: "4", nombre: 'Fideos', cantidad: 3, precio: 2.34 }, // 3 */
-]
+/* ] */
 
 let crearLista = true
 let ul = null
@@ -53,13 +69,15 @@ async function obtenerTodosLosProductos() {
 
         /* CRUD -> R:READ -> Método GET */
         const productos = await handleHttp(urlProductos) 
-
         //console.log(productos)
+
+        // Guardo la lista de productos actual en el localStorage (persisto en el navegador)
+        guardarListaProductos(listadoProductos)
+        
         listadoProductos = productos
 
-        window.localStorage.setItem('lista', JSON.stringify(listadoProductos))
-        
     } catch (error) {
+        listadoProductos = leerListaProductos()
         throw error
     }
 
@@ -338,17 +356,35 @@ async function registrarServiceWorker() {
 
     if ( 'serviceWorker' in navigator ) {
         console.log('Está disponible el SW')
+        try {
+            const reg = await window.navigator.serviceWorker.register('/sw.js')
+            console.log('El service se registro correctamente...', reg)
+
+            // Pedimos permiso para que l sistema operativo nos envíe notificaciones
+            // https://developer.mozilla.org/en-US/docs/Web/API/Notification
+            
+            window.Notification.requestPermission( async result => {
+                if ( result === 'granted' ) {
+                    console.log('El usuaro acepto las notificaciones')
+                    const registration = await window.navigator.serviceWorker.ready
+                    console.log(registration)
+                    //registration.showNotification('Gracias por permitir las notificaciones!')
+                } else {
+                    console.error('El usuario no acepto recibir notificaciones')
+                }
+            })
 
 
-        
+        } catch (error) {
+            console.error('Error al registrar el service worker', error)
+        }
+
     } else {
         console.error('serviceWorker no está disponible en navigator')
     }
 }
 
-
-
-async function start() {
+async function start() {    
     try {
         await obtenerTodosLosProductos()
         registrarServiceWorker()
@@ -361,4 +397,3 @@ async function start() {
 
 // ! DOMContentLoaded <--- Me asegura que todo el DOM este cargado antes de ejecutar una acción
 document.addEventListener('DOMContentLoaded', start)
-

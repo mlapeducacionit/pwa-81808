@@ -155,3 +155,34 @@ Para decirle al navegador como tiene que tratar tu app. Sin el manifest la app e
 * **name**: Nombre completo de la app
 
 * **short_name**: Nombre corto de la app
+
+## Extras
+
+<https://www.pwabuilder.com/>
+<https://www.npmjs.com/package/lighthouse>
+<https://web.dev/learn/pwa/workbox?hl=es-419>
+<https://developer.chrome.com/docs/workbox/what-is-workbox?hl=es-419>
+
+## Para probar de la mejor manera una PWA usando VITE
+
+```sh
+npm run build + npm run preview
+``` 
+
+# Actualizar dependencias a las últimas versiones
+
+```sh
+npm install -g npm-check-updates
+```
+
+## Controlar versiones
+
+```sh
+ncu
+```
+
+## Y si quiero actualizar las versiones
+
+```sh
+ncu -u && npm i
+```
