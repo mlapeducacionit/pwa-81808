@@ -17,30 +17,6 @@
       "nombre": "Pan",
       "cantidad": 10,
       "precio": 12.34
-    },
-    {
-      "id": "4",
-      "nombre": "Fideos",
-      "cantidad": 3,
-      "precio": 2.34
-    },
-    {
-      "id": "1ce4",
-      "nombre": "Te",
-      "cantidad": 50,
-      "precio": 213
-    },
-    {
-      "id": "eb0b",
-      "nombre": "Cafe",
-      "cantidad": 222,
-      "precio": 1230
-    },
-    {
-      "id": "91f3",
-      "nombre": "Jabón",
-      "cantidad": 55,
-      "precio": 222
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

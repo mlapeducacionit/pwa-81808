@@ -236,7 +236,7 @@ function configurarListeners() {
         //console.dir(e.target)
         //const idProductoABorrar = e.target.parentElement.dataset.id
         const elemento = e.target.parentElement
-    
+        //console.log(elemento)
         if ( elemento.classList.contains('boton-borrado-por-id') ) {
             Swal.fire({
                 title: "¿Estás seguro?",
@@ -260,7 +260,7 @@ function configurarListeners() {
 
                             await handleHttp(urlBorrado, options)
 
-                            const indiceProducto = listadoProductos.findIndex(prod => prod.id === idProductoABorrar)
+                            const indiceProducto = listadoProductos.findIndex(prod => prod.id === elemento.dataset.id)
                             console.log(indiceProducto)
                             listadoProductos.splice(indiceProducto, 1)
                             renderLista()
