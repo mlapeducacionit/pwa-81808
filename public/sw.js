@@ -97,7 +97,7 @@ self.addEventListener('fetch', (e) => {
         console.warn('NO EXISTE: el recurso no existe en el cache', url)
 
         return fetch(e.request).then( nuevaRespuesta => {
-            if ( method !== 'DELETE' ) {
+            if ( method !== 'DELETE' || method !== 'PUT' ) {
                 caches.open(CACHE_DYNAMIC_NAME).then( cache => {
                     cache.put(e.request, nuevaRespuesta)
                 })
