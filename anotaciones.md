@@ -186,3 +186,8 @@ ncu
 ```sh
 ncu -u && npm i
 ```
+
+## Netlify
+Hosting web como servicio
+
+<https://netlify.com/
