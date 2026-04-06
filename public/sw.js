@@ -96,12 +96,14 @@ self.addEventListener('fetch', (e) => {
         } 
         console.warn('NO EXISTE: el recurso no existe en el cache', url)
 
-        return fetch(e.request).then( nuevaRespuesta => {
-            caches.open(CACHE_DYNAMIC_NAME).then( cache => {
-                cache.put(e.request, nuevaRespuesta)
+        if ( method !== 'DELETE' ) {
+            return fetch(e.request).then( nuevaRespuesta => {
+                caches.open(CACHE_DYNAMIC_NAME).then( cache => {
+                    cache.put(e.request, nuevaRespuesta)
+                })
+                return nuevaRespuesta.clone()
             })
-            return nuevaRespuesta.clone()
-        })
+        }
 
     })
 
