@@ -287,6 +287,8 @@ function configurarListeners() {
             // console.log(elemento)
             const boton = elemento.parentElement.parentElement.querySelector('button')
             const id = boton.dataset.id
+            const index = listadoProductos.findIndex(prod => prod.id === id)
+            const productoEncontrado = listadoProductos[index]
             console.log(id)
             let valor = elemento.value
             valor = Number(valor)
@@ -297,11 +299,11 @@ function configurarListeners() {
                 console.log(urlEdicion)
                 
                 const options = {
-                    method: 'PATCH',
+                    method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
                     },
-                    body: JSON.stringify( { [nombre]: valor } )
+                    body: JSON.stringify( { ...productoEncontrado, [nombre]: valor } )
                 }
 
                 await handleHttp(urlEdicion, options)
@@ -317,6 +319,8 @@ function configurarListeners() {
             const boton = elemento.parentElement.parentElement.querySelector('button')
             const id = boton.dataset.id
             console.log(id)
+            const index = listadoProductos.findIndex(prod => prod.id === id)
+            const productoEncontrado = listadoProductos[index]
             let valor = elemento.value
             valor = Number(valor)
             let nombre = elemento.name
@@ -326,11 +330,11 @@ function configurarListeners() {
                 console.log(urlEdicion)
                 
                 const options = {
-                    method: 'PATCH',
+                    method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
                     },
-                    body: JSON.stringify( { [nombre]: valor } )
+                    body: JSON.stringify( { ...productoEncontrado, [nombre]: valor } )
                 }
 
                 await handleHttp(urlEdicion, options)
